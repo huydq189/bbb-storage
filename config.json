@@ -1,0 +1,13 @@
+{
+	"debug": true,
+	"server": {
+		"address": ":1234"
+	},
+	"context": {
+		"timeout": 2
+	},
+	"bbb": {
+		"presentationDir": "/var/bigbluebutton/published/presentation/",
+		"maxUploadSize": 32
+	}
+}
