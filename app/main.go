@@ -26,14 +26,15 @@ func init() {
 }
 
 func main() {
+	middL := _fileServerHttpDeliveryMiddleware.InitMiddleware()
 	recordDir := viper.GetString(`bbb.presentationDir`)
 	maxUploadSize := int64(1 << viper.GetInt(`bbb.maxUploadSize`))
-	e := echo.New()
-	middL := _fileServerHttpDeliveryMiddleware.InitMiddleware()
-	e.Use(middL.CORS)
-	fileServerRepo := _fileServerRepo.NewLocalFileServerRepository(recordDir, maxUploadSize)
-
 	timeoutContext := time.Duration(viper.GetInt("context.timeout")) * time.Second
+
+	e := echo.New()
+	e.Use(middL.CORS)
+
+	fileServerRepo := _fileServerRepo.NewLocalFileServerRepository(recordDir, maxUploadSize)
 	fu := _fileServerUcase.NewFileServerUsecase(fileServerRepo, timeoutContext)
 	_fileServerHttpDelivery.NewFileServerHandler(e, fu)
 
