@@ -8,6 +8,7 @@ import (
 
 	"github.com/huydq189/bbb-storage/domain"
 	"github.com/huydq189/bbb-storage/domain/usecase"
+	"github.com/huydq189/bbb-storage/file-server/delivery/http/helper"
 )
 
 // ResponseMessage represent the reseponse error struct
@@ -41,7 +42,10 @@ func (f *FileServerHandler) UploadFile(c echo.Context) error {
 
 // DownloadFile will store the article by given request body
 func (f *FileServerHandler) DownloadFile(c echo.Context) (err error) {
-	id := c.Param("id")
+	id := string(c.Param("id"))
+	if isValid, err := helper.IsValidRecordID(id); !isValid {
+		return c.JSON(getStatusCode(err), ResponseMessage{Message: err.Error()})
+	}
 	err = f.FUsecase.DownloadFile(c, id)
 	if err != nil {
 		return c.JSON(getStatusCode(err), ResponseMessage{Message: err.Error()})
@@ -63,6 +67,8 @@ func getStatusCode(err error) int {
 		return http.StatusNotFound
 	case domain.ErrConflict:
 		return http.StatusConflict
+	case domain.ErrBadParamInput:
+		return http.StatusBadRequest
 	default:
 		return http.StatusInternalServerError
 	}
