@@ -8,7 +8,7 @@ import (
 
 	"github.com/huydq189/bbb-storage/domain"
 	"github.com/huydq189/bbb-storage/domain/usecase"
-	"github.com/huydq189/bbb-storage/file-server/delivery/http/helper"
+	"github.com/huydq189/bbb-storage/file-server/delivery/helper"
 )
 
 // ResponseMessage represent the reseponse error struct
