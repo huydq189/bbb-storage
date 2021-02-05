@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/huydq189/bbb-storage/domain"
-	"github.com/huydq189/bbb-storage/domain/usecase"
+	"github.com/huydq189/bbb-storage/domain/repository"
 	"github.com/labstack/echo"
 )
 
@@ -16,7 +16,7 @@ type localFileServerRepository struct {
 }
 
 // NewLocalFileServerRepository will create an object that represent the fileServer.Repository interface
-func NewLocalFileServerRepository(recordDir string, maxUploadSize int64) usecase.IFileServerUsecase {
+func NewLocalFileServerRepository(recordDir string, maxUploadSize int64) repository.IFileServerRepository {
 	return &localFileServerRepository{recordDir, maxUploadSize}
 }
 
