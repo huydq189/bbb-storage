@@ -8,7 +8,7 @@ import (
 
 // IsValidRecordID return if record id is numberic and single dash format
 func IsValidRecordID(id string) (b bool, err error) {
-	if m, _ := regexp.MatchString("^[0-9]*-[0-9]$", id); !m {
+	if m, _ := regexp.MatchString("^[a-z0-9]*-[0-9]*$", id); !m {
 		return false, domain.ErrBadParamInput
 	}
 	return true, nil
