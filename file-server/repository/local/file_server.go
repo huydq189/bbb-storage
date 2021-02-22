@@ -21,7 +21,7 @@ func NewLocalFileServerRepository(recordDir string, maxUploadSize int64) reposit
 }
 
 func (m *localFileServerRepository) DownloadFile(ctx echo.Context, id string) error {
-	filePath := m.recordDir + id + "/deskshare/deskshare.webm"
+	filePath := m.recordDir + id + "/video.mp4"
 	arraySlash := strings.SplitAfter(filePath, "/")
 	fileName := arraySlash[len(arraySlash)-1]
 	f, err := os.Open(filePath)
